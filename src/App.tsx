@@ -1,8 +1,9 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { HomePage } from './Pages/HomePage';
 import { PeoplePage } from './Pages/PeoplePage';
-import { ErrorPage } from './Pages/ErrorPage';
+import { NotFoundPage } from './Pages/NotFoundPage';
 import { Root } from './Pages/Root';
+import './App.scss';
 
 export const App = () => (
   <Routes>
@@ -13,7 +14,7 @@ export const App = () => (
         <Route index element={<PeoplePage />} />
         <Route path=":slug" element={<PeoplePage />} />
       </Route>
-      <Route path="*" element={<ErrorPage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Route>
   </Routes>
 );

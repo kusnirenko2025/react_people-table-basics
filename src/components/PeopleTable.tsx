@@ -16,43 +16,38 @@ export const PeopleTable: React.FC<Props> = ({ people, selectedSlug }) => {
     >
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Sex</th>
-          <th>Born</th>
-          <th>Died</th>
-          <th>Mother</th>
-          <th>Father</th>
+          {['Name', 'Sex', 'Born', 'Died', 'Mother', 'Father'].map(col => (
+            <th key={col}>{col}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
         {people.map(person => {
+          const { sex, born, died, name, slug, motherName, fatherName } =
+            person;
           const rowClass =
-            person.slug === selectedSlug ? 'has-background-warning' : '';
-          const mother = person.motherName
-            ? (findByName(person.motherName) ?? undefined)
-            : undefined;
-          const father = person.fatherName
-            ? (findByName(person.fatherName) ?? undefined)
-            : undefined;
+            slug === selectedSlug ? 'has-background-warning' : '';
+          const mother = motherName ? findByName(motherName) : undefined;
+          const father = fatherName ? findByName(fatherName) : undefined;
 
           return (
-            <tr key={person.slug} data-cy="person" className={rowClass}>
+            <tr key={slug} data-cy="person" className={rowClass}>
               <td>
-                <PersonLink person={person} name={person.name} />
+                <PersonLink person={person} name={name} />
               </td>
-              <td>{person.sex}</td>
-              <td>{person.born}</td>
-              <td>{person.died}</td>
+              <td>{sex}</td>
+              <td>{born}</td>
+              <td>{died}</td>
               <td>
-                {person.motherName ? (
-                  <PersonLink person={mother} name={person.motherName} />
+                {motherName ? (
+                  <PersonLink person={mother} name={motherName} />
                 ) : (
                   '-'
                 )}
               </td>
               <td>
-                {person.fatherName ? (
-                  <PersonLink person={father} name={person.fatherName} />
+                {fatherName ? (
+                  <PersonLink person={father} name={fatherName} />
                 ) : (
                   '-'
                 )}
